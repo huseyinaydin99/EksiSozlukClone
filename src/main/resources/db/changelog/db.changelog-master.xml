@@ -13,7 +13,8 @@
             <column name="last_name" value="Aydin"/>
             <column name="email_address" value="huseyin@example.com"/>
             <column name="user_name" value="haydin"/>
-            <column name="password" value="password123"/>
+            <column name="password" value="$2a$10$q.yCIdp.pD7iVp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp."/> <!-- password123 (temsili BCrypt) -->
+            <column name="role" value="ADMIN"/>
             <column name="email_confirmed" valueBoolean="true"/>
         </insert>
         <insert tableName="users">
@@ -23,7 +24,8 @@
             <column name="last_name" value="User"/>
             <column name="email_address" value="test@example.com"/>
             <column name="user_name" value="testuser"/>
-            <column name="password" value="testpass"/>
+            <column name="password" value="$2a$10$q.yCIdp.pD7iVp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp.Vp."/> <!-- testpass (temsili BCrypt) -->
+            <column name="role" value="USER"/>
             <column name="email_confirmed" valueBoolean="true"/>
         </insert>
     </changeSet>

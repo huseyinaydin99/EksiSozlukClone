@@ -8,7 +8,7 @@ import tr.com.huseyinaydin.domain.models.Entry;
 
 @Mapper(componentModel = "spring")
 public interface EntryMapper {
-    @Mapping(target = "createdByUserName", source = "createdBy.userName")
+    @Mapping(target = "createdByUserName", source = "createdBy.username")
     @Mapping(target = "createdDate", source = "createDate")
     @Mapping(target = "favoritedCount", expression = "java(entry.getEntryFavorites() != null ? entry.getEntryFavorites().size() : 0)")
     @Mapping(target = "isFavorited", ignore = true)

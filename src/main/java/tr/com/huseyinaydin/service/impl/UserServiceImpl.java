@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmailAddress(user.getEmailAddress()).isPresent()) {
             throw new BusinessException("User with this email already exists.");
         }
-        if (userRepository.findByUserName(user.getUserName()).isPresent()) {
+        if (userRepository.findByUserName(user.getUsername()).isPresent()) {
             throw new BusinessException("User with this username already exists.");
         }
         return userRepository.save(user);
