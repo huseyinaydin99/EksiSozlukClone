@@ -1,18 +1,22 @@
 package tr.com.huseyinaydin.domain.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "entry")
-@EqualsAndHashCode(callSuper = true)
 public class Entry extends BaseEntity {
     private String subject;
-    
+
     @Column(length = 5000)
     private String content;
 
@@ -22,4 +26,10 @@ public class Entry extends BaseEntity {
 
     @OneToMany(mappedBy = "entry")
     private Collection<EntryComment> entryComments;
+
+    @OneToMany(mappedBy = "entry")
+    private Collection<EntryVote> entryVotes;
+
+    @OneToMany(mappedBy = "entry")
+    private Collection<EntryFavorite> entryFavorites;
 }

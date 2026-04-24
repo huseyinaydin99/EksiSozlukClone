@@ -3,15 +3,19 @@ package tr.com.huseyinaydin.domain.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "user")
-@EqualsAndHashCode(callSuper = true)
+@Table(name = "users")
 public class User extends BaseEntity {
     private String firstName;
     private String lastName;
@@ -25,4 +29,10 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "createdBy")
     private Collection<EntryComment> entryComments;
+
+    @OneToMany(mappedBy = "createdUser")
+    private Collection<EntryFavorite> entryFavorites;
+
+    @OneToMany(mappedBy = "createdUser")
+    private Collection<EntryCommentFavorite> entryCommentFavorites;
 }
