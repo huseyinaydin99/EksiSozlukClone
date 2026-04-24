@@ -14,15 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import tr.com.huseyinaydin.application.dto.auth.AuthenticationResponse;
 import tr.com.huseyinaydin.application.dto.auth.LoginRequest;
 import tr.com.huseyinaydin.application.dto.auth.RegisterRequest;
+import tr.com.huseyinaydin.controller.base.BaseMvcController;
 import tr.com.huseyinaydin.infrastructure.exceptions.BusinessException;
-import tr.com.huseyinaydin.service.interfaces.AuthService;
 
 @Controller
 @RequestMapping("/auth")
-@RequiredArgsConstructor
-public class AuthController {
-
-    private final AuthService authService;
+public class AuthController extends BaseMvcController {
 
     @GetMapping("/login")
     public String loginPage(Model model) {

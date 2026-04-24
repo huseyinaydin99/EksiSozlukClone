@@ -7,19 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import tr.com.huseyinaydin.application.dto.EntryDetailDto;
 import tr.com.huseyinaydin.application.dto.EntrySummaryDto;
-import tr.com.huseyinaydin.application.mapper.EntryMapper;
+import tr.com.huseyinaydin.application.features.queries.entry.getall.GetAllEntriesQuery;
+import tr.com.huseyinaydin.controller.base.BaseMvcController;
 import tr.com.huseyinaydin.domain.models.Entry;
-import tr.com.huseyinaydin.service.interfaces.EntryService;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Controller
-@RequiredArgsConstructor
-public class HomeController {
-    private final EntryService entryService;
-    private final EntryMapper entryMapper;
+public class HomeController extends BaseMvcController {
 
     @GetMapping("/")
     public String index() {

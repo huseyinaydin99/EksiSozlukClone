@@ -10,14 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import tr.com.huseyinaydin.application.dto.auth.AuthenticationResponse;
 import tr.com.huseyinaydin.application.dto.auth.LoginRequest;
 import tr.com.huseyinaydin.application.dto.auth.RegisterRequest;
-import tr.com.huseyinaydin.service.interfaces.AuthService;
+import tr.com.huseyinaydin.controller.base.BaseApiController;
 
-@RestController
 @RequestMapping("/api/v1/auth")
-@RequiredArgsConstructor
-public class AuthApiController {
-
-    private final AuthService authService;
+public class AuthApiController extends BaseApiController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request) {
