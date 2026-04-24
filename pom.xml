@@ -82,6 +82,12 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
+        <!-- Liquibase -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
         <!-- DB -->
         <dependency>
             <groupId>com.h2database</groupId>
