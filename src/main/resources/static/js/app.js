@@ -1,5 +1,5 @@
 async function voteEntry(entryId, voteType) {
-    const response = await fetch(`/api/entries/${entryId}/vote?voteType=${voteType}`, {
+    const response = await fetch(`/api/votes/entry/${entryId}?voteType=${voteType}`, {
         method: 'POST'
     });
     if (response.ok) {
@@ -8,7 +8,7 @@ async function voteEntry(entryId, voteType) {
 }
 
 async function favoriteEntry(entryId) {
-    const response = await fetch(`/api/entries/${entryId}/favorite`, {
+    const response = await fetch(`/api/favorites/entry/${entryId}`, {
         method: 'POST'
     });
     if (response.ok) {
@@ -17,7 +17,7 @@ async function favoriteEntry(entryId) {
 }
 
 async function voteComment(commentId, voteType) {
-    const response = await fetch(`/api/comments/${commentId}/vote?voteType=${voteType}`, {
+    const response = await fetch(`/api/votes/entry-comment/${commentId}?voteType=${voteType}`, {
         method: 'POST'
     });
     if (response.ok) {
@@ -26,7 +26,7 @@ async function voteComment(commentId, voteType) {
 }
 
 async function favoriteComment(commentId) {
-    const response = await fetch(`/api/comments/${commentId}/favorite`, {
+    const response = await fetch(`/api/favorites/entry-comment/${commentId}`, {
         method: 'POST'
     });
     if (response.ok) {

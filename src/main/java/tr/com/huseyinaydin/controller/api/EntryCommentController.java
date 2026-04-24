@@ -11,25 +11,7 @@ import tr.com.huseyinaydin.domain.models.VoteType;
 
 import java.util.UUID;
 
-@RequestMapping("/api/comments")
+@RestController
+@RequestMapping("/api/entry-comments")
 public class EntryCommentController extends BaseApiController {
-
-    @PostMapping("/{id}/vote")
-    public ResponseEntity<Boolean> vote(@PathVariable UUID id, @RequestParam VoteType voteType, @AuthenticationPrincipal User user) {
-        CreateEntryCommentVoteCommand command = CreateEntryCommentVoteCommand.builder()
-                .entryCommentId(id)
-                .voteType(voteType)
-                .createdById(user.getId())
-                .build();
-        return ResponseEntity.ok(mediator.send(command));
-    }
-
-    @PostMapping("/{id}/favorite")
-    public ResponseEntity<Boolean> favorite(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-        CreateEntryCommentFavoriteCommand command = CreateEntryCommentFavoriteCommand.builder()
-                .entryCommentId(id)
-                .userId(user.getId())
-                .build();
-        return ResponseEntity.ok(mediator.send(command));
-    }
 }

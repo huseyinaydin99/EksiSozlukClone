@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@RestController
 @RequestMapping("/api/entries")
 public class EntryController extends BaseApiController {
 
@@ -39,24 +40,5 @@ public class EntryController extends BaseApiController {
                 .map(entryMapper::toSummaryDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(entries);
-    }
-
-    @PostMapping("/{id}/vote")
-    public ResponseEntity<Boolean> vote(@PathVariable UUID id, @RequestParam VoteType voteType, @AuthenticationPrincipal User user) {
-        CreateEntryVoteCommand command = CreateEntryVoteCommand.builder()
-                .entryId(id)
-                .voteType(voteType)
-                .createdById(user.getId())
-                .build();
-        return ResponseEntity.ok(mediator.send(command));
-    }
-
-    @PostMapping("/{id}/favorite")
-    public ResponseEntity<Boolean> favorite(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-        CreateEntryFavoriteCommand command = CreateEntryFavoriteCommand.builder()
-                .entryId(id)
-                .userId(user.getId())
-                .build();
-        return ResponseEntity.ok(mediator.send(command));
     }
 }
