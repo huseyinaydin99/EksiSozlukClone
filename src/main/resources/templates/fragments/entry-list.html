@@ -4,25 +4,7 @@
 <div th:fragment="entry-list(entries)" class="entry-list">
     <!-- Handle single entry or list -->
     <th:block th:each="entry : ${entries}">
-        <div class="entry-item mb-4">
-        <h1 class="entry-subject h4">
-            <a th:href="@{/entry/{id}(id=${entry.id})}" th:text="${entry.subject}" class="text-success">Entry Subject</a>
-        </h1>
-        <div class="entry-content mb-2" th:text="${entry.content}">
-            Entry content goes here...
-        </div>
-        <div class="entry-footer d-flex justify-content-between align-items-center small">
-            <div class="entry-actions">
-                <a href="#" class="mr-2 text-muted"><i class="fas fa-chevron-up"></i></a>
-                <a href="#" class="mr-2 text-muted"><i class="fas fa-chevron-down"></i></a>
-                <a href="#" class="text-muted"><i class="far fa-star"></i></a>
-            </div>
-            <div class="entry-author-info text-right">
-                <a href="#" th:text="${entry.createdByUserName}" class="text-success mr-2">username</a>
-                <span class="text-muted" th:text="${#temporals.format(entry.createdDate, 'dd.MM.yyyy HH:mm')}">10.05.2024 14:00</span>
-            </div>
-        </div>
-    </div>
+        <div th:replace="~{fragments/entry-components :: entry-viewer(${entry})}"></div>
     </th:block>
 </div>
 </body>

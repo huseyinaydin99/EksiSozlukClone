@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Entry Viewer Fragment -->
+<div th:fragment="entry-viewer(entry)" class="card border-0">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a th:href="@{/entry/{id}(id=${entry.id})}">
+                <strong class="entry-subject" th:text="${entry.subject}">Subject</strong>
+            </a>
+        </h5>
+        <br />
+        <p class="entry-content" th:text="${entry.content}">Content</p>
+
+        <div class="container p-0">
+            <span class="d-flex align-items-center">
+                <!-- Vote Section -->
+                <a class="p-1" title="Oy ver!">
+                    <span class="oi oi-arrow-top entry-vote"
+                          th:classappend="${entry.voteType == T(tr.com.huseyinaydin.domain.models.VoteType).UPVOTE ? 'text-success' : 'text-secondary'}"></span>
+                </a>
+                <a class="p-3" title="Oy verme!">
+                    <span class="oi oi-arrow-bottom entry-vote"
+                          th:classappend="${entry.voteType == T(tr.com.huseyinaydin.domain.models.VoteType).DOWNVOTE ? 'text-danger' : 'text-secondary'}"></span>
+                </a>
+
+                <!-- Favorite Section -->
+                <span class="entry-fav p-3"
+                      th:classappend="${entry.isFavorited ? 'entry-faved' : 'entry-not-faved'}"
+                      th:if="${#authorization.expression('isAuthenticated()')}">
+                    <span th:text="${entry.favoritedCount}">0</span>
+                </span>
+            </span>
+        </div>
+
+        <!-- Author Section -->
+        <div th:replace="~{fragments/entry-components :: entry-footer-author(${entry.createdByUserName}, ${entry.createdDate})}"></div>
+    </div>
+</div>
+
+<!-- Comment Viewer Fragment -->
+<div th:fragment="comment-viewer(comment)" class="card border-0">
+    <div class="card-body col-md-12">
+        <p class="entry-content" th:text="${comment.content}">Comment Content</p>
+
+        <div class="container p-0">
+            <span class="d-flex align-items-center">
+                <!-- Vote Section -->
+                <a class="p-1" title="Oy ver!">
+                    <span class="oi oi-arrow-top entry-vote"
+                          th:classappend="${comment.voteType == T(tr.com.huseyinaydin.domain.models.VoteType).UPVOTE ? 'text-success' : 'text-secondary'}"></span>
+                </a>
+                <a class="p-3" title="Oy verme!">
+                    <span class="oi oi-arrow-bottom entry-vote"
+                          th:classappend="${comment.voteType == T(tr.com.huseyinaydin.domain.models.VoteType).DOWNVOTE ? 'text-danger' : 'text-secondary'}"></span>
+                </a>
+
+                <!-- Favorite Section -->
+                <span class="entry-fav p-3"
+                      th:classappend="${comment.isFavorited ? 'entry-faved' : 'entry-not-faved'}"
+                      th:if="${#authorization.expression('isAuthenticated()')}">
+                    <span th:text="${comment.favoritedCount}">0</span>
+                </span>
+            </span>
+        </div>
+
+        <!-- Author Section -->
+        <div th:replace="~{fragments/entry-components :: entry-footer-author(${comment.createdByUserName}, ${comment.createdDate})}"></div>
+    </div>
+</div>
+
+<!-- Footer Author Fragment -->
+<div th:fragment="entry-footer-author(userName, createDate)" class="card text-end border-0 bg-transparent mt-3">
+    <div class="entry-author text-right">
+        <a th:href="@{/profile/{user}(user=${userName})}" th:text="${userName}">User</a>
+    </div>
+    <div class="entry-date text-right">
+        <a href="#" th:text="${#temporals.format(createDate, 'dd.MM.yyyy HH:mm:ss')}">01.01.2024 00:00:00</a>
+    </div>
+</div>
+
+</body>
+</html>

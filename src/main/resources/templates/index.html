@@ -3,15 +3,7 @@
       layout:decorate="~{layout}">
 <body>
     <div layout:fragment="content">
-        <div class="welcome-message text-center mt-5 mb-5" th:if="${entries.empty}">
-            <h1>ekşi sözlük clone'a hoş geldiniz</h1>
-            <p>henüz hiç entry girilmemiş. ilkini sen girmek ister misin?</p>
-        </div>
-        
-        <div th:if="${!entries.empty}">
-            <h2 class="h5 mb-4 text-muted">bugün öne çıkanlar</h2>
-            <div th:replace="~{fragments/entry-list :: entry-list(entries=${entries})}"></div>
-        </div>
+        <div th:replace="~{fragments/entry-list :: entry-list(entries=${entries})}"></div>
     </div>
 </body>
 </html>

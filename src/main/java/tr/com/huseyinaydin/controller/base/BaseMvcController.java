@@ -17,5 +17,8 @@ public abstract class BaseMvcController {
     protected EntryService entryService;
 
     @Autowired
+    protected tr.com.huseyinaydin.service.interfaces.EntryCommentService entryCommentService;
+
+    @Autowired
     protected AuthService authService;
 }

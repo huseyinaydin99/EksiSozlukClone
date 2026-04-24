@@ -3,12 +3,30 @@
       layout:decorate="~{layout}">
 <body>
     <div layout:fragment="content">
-        <div class="entry-detail">
-            <div th:replace="~{fragments/entry-list :: entry-list(entries=${entry})}"></div>
+        <div class="entry-detail" th:if="${entry != null}">
+            <!-- Entry Detail -->
+            <div th:replace="~{fragments/entry-components :: entry-viewer(${entry})}"></div>
             
-            <div class="entry-actions mt-2 border-top pt-3">
-                <button class="btn btn-sm btn-outline-success">paylaş</button>
-                <button class="btn btn-sm btn-outline-success">favori</button>
+            <br />
+            
+            <!-- Comments -->
+            <div th:if="${comments != null}">
+                <div th:each="comment : ${comments}">
+                    <div th:replace="~{fragments/entry-components :: comment-viewer(${comment})}"></div>
+                </div>
+            </div>
+            
+            <br />
+            
+            <!-- Create Comment Section -->
+            <div th:if="${#authorization.expression('isAuthenticated()')}" class="entry-comment-add-container mt-4">
+                <form th:action="@{/entry/comment}" method="post">
+                    <input type="hidden" name="entryId" th:value="${entry.id}" />
+                    <textarea name="content" class="entry-comment-textarea" placeholder="yorumunuzu buraya yazabilirsiniz..."></textarea>
+                    <div class="entry-comment-actions text-right">
+                        <button type="submit" class="btn btn-success btn-sozluk">yolla</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -26,6 +26,10 @@ public class HomeController extends BaseMvcController {
         Entry entry = entryService.getById(id);
         EntryDetailDto entryDetail = entryMapper.toDetailDto(entry);
         model.addAttribute("entry", entryDetail);
+        
+        var comments = entryCommentService.getByEntryId(id);
+        model.addAttribute("comments", comments);
+        
         return "entry-detail";
     }
 }
