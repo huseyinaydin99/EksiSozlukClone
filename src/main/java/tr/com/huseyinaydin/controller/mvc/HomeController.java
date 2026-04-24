@@ -22,11 +22,7 @@ public class HomeController {
     private final EntryMapper entryMapper;
 
     @GetMapping("/")
-    public String index(Model model) {
-        List<EntrySummaryDto> entries = entryService.getAll().stream()
-                .map(entryMapper::toSummaryDto)
-                .collect(Collectors.toList());
-        model.addAttribute("entries", entries);
+    public String index() {
         return "index";
     }
 
@@ -34,13 +30,7 @@ public class HomeController {
     public String entryDetail(@PathVariable UUID id, Model model) {
         Entry entry = entryService.getById(id);
         EntryDetailDto entryDetail = entryMapper.toDetailDto(entry);
-        
-        List<EntrySummaryDto> leftMenuEntries = entryService.getAll().stream()
-                .map(entryMapper::toSummaryDto)
-                .collect(Collectors.toList());
-
         model.addAttribute("entry", entryDetail);
-        model.addAttribute("entries", leftMenuEntries);
         return "entry-detail";
     }
 }

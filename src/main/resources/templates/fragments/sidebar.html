@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="sidebar" class="col-md-3 col-lg-2 d-none d-md-block sidebar">
+    <div class="sidebar-sticky">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>bugün</span>
+            <a class="d-flex align-items-center text-muted" href="#" aria-label="Refresh">
+                <i class="fas fa-sync-alt"></i>
+            </a>
+        </h6>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="entryItem : ${entries}">
+                <a th:href="@{/entry/{id}(id=${entryItem.id})}" th:text="${entryItem.subject}">Entry Subject</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
