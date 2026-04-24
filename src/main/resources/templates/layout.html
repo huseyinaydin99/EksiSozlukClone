@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekşi Sözlük Clone</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <style>
+        body { background-color: #1c1c1c; color: #bdbdbd; }
+        .navbar { background-color: #2d2d2d; border-bottom: 1px solid #3e3e3e; }
+        .sidebar { background-color: #1c1c1c; border-right: 1px solid #2d2d2d; height: calc(100vh - 56px); overflow-y: auto; padding-top: 20px; }
+        .content { padding-top: 20px; }
+        .logo img { height: 30px; }
+        .list-group-item { background-color: transparent; border: none; padding: 5px 15px; }
+        .list-group-item a { color: #bdbdbd; font-size: 14px; }
+        .list-group-item a:hover { color: #53a245; text-decoration: none; }
+        .btn-sozluk { background-color: #68a138; border-color: #3e6121; color: white; }
+        .sub-nav { display: flex; gap: 15px; padding: 10px 0; border-bottom: 1px solid #2d2d2d; margin-bottom: 20px; }
+        .sub-nav a { color: #bdbdbd; font-size: 13px; font-weight: bold; }
+        .sub-nav a.active { color: #53a245; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand logo" th:href="@{/}">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_yeni_logo.svg/2560px-Ek%C5%9Fi_S%C3%B6zl%C3%BCk_yeni_logo.svg.png" alt="Logo">
+        </a>
+        
+        <div class="mx-auto w-50">
+            <div class="input-group">
+                <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="sözlükte ara">
+                <div class="input-group-append">
+                    <button class="btn btn-sozluk" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ml-auto">
+            <a th:href="@{/login}" class="btn btn-sm btn-sozluk">giriş yap</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>bugün</span>
+                    <a class="d-flex align-items-center text-muted" href="#" aria-label="Refresh">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="entryItem : ${entries}">
+                        <a th:href="@{/entry/{id}(id=${entryItem.id})}" th:text="${entryItem.subject}">Entry Subject</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 content">
+            <div class="sub-nav">
+                <a href="#" class="active">bugün</a>
+                <a href="#">gündem</a>
+                <a href="#">debe</a>
+                <a href="#">sorunsallar</a>
+                <a href="#">takip</a>
+                <a href="#">son</a>
+            </div>
+            
+            <div layout:fragment="content">
+                <!-- Page content will be inserted here -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
