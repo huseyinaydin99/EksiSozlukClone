@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import tr.com.huseyinaydin.domain.models.EntryCommentVote;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface EntryCommentVoteRepository extends JpaRepository<EntryCommentVote, UUID> {
+    Optional<EntryCommentVote> findByEntryCommentIdAndCreatedById(UUID entryCommentId, UUID createdById);
 }
