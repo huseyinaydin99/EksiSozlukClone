@@ -14,4 +14,5 @@ public class ChangeUserPasswordCommand implements Request<Boolean> {
     private UUID userId;
     private String oldPassword;
     private String newPassword;
+    private String confirmNewPassword;
 }

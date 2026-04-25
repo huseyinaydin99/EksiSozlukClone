@@ -16,6 +16,14 @@ public class ChangeUserPasswordCommandHandler implements RequestHandler<ChangeUs
 
     @Override
     public Boolean handle(ChangeUserPasswordCommand request) {
+        if (request.getNewPassword() == null || request.getNewPassword().length() < 6) {
+            throw new BusinessException("Yeni şifre en az 6 karakter olmalıdır.");
+        }
+
+        if (!request.getNewPassword().equals(request.getConfirmNewPassword())) {
+            throw new BusinessException("Yeni şifreler birbiriyle uyuşmuyor.");
+        }
+
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new BusinessException("Kullanıcı bulunamadı."));
 

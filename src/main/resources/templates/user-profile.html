@@ -13,8 +13,11 @@
             <h2 class="text-success" th:text="${user.userName}">Username</h2>
             <p class="text-secondary" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
         </div>
-        <div sec:authorize="isAuthenticated()" th:if="${#authentication.name == user.userName}">
-            <a th:href="@{/profile/edit}" class="btn btn-sm btn-outline-success">detayları güncelle</a>
+        <!--
+        th:if="${currentUserName != null and #strings.equalsIgnoreCase(#strings.trim(currentUserName), #strings.trim(user.userName))}"
+        -->
+        <div>
+            <a th:href="@{/profile/edit}" class="btn btn-sm btn-outline-success">profili düzenle</a>
         </div>
     </div>
     <hr class="border-secondary">

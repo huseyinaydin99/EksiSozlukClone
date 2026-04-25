@@ -194,3 +194,11 @@ label {
 .oi {
     vertical-align: middle;
 }
+
+.progress {
+    background-color: #474747;
+}
+
+.bg-darker {
+    background-color: #252525 !important;
+}

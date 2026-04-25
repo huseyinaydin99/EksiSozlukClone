@@ -1,5 +1,6 @@
 package tr.com.huseyinaydin.controller.mvc;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import tr.com.huseyinaydin.application.dto.UserDetailDto;
 import tr.com.huseyinaydin.application.features.commands.user.password.ChangeUserPasswordCommand;
 import tr.com.huseyinaydin.application.features.commands.user.update.UpdateUserCommand;
@@ -21,9 +23,11 @@ import java.security.Principal;
 public class UserMvcController extends BaseMvcController {
 
     @GetMapping("/profile/{userName}")
-    public String profile(@PathVariable String userName, Model model) {
+    public String profile(@PathVariable String userName, Model model, Principal principal) {
         UserDetailDto userDetail = mediator.send(new GetUserDetailQuery(userName));
         model.addAttribute("user", userDetail);
+        String currentUserName = (principal != null) ? principal.getName() : null;
+        model.addAttribute("currentUserName", currentUserName);
         return "user-profile";
     }
 
@@ -43,14 +47,21 @@ public class UserMvcController extends BaseMvcController {
     }
 
     @PostMapping("/profile/change-password")
-    public String changePassword(@RequestParam String oldPassword, @RequestParam String newPassword, Principal principal) {
-        if (principal == null) return "redirect:/auth/login";
-        User user = userService.getByUserName(principal.getName());
-        if (user == null) {
-            throw new BusinessException("Kullanıcı bulunamadı.");
+    @ResponseBody
+    public ResponseEntity<?> changePassword(@RequestParam String oldPassword, 
+                                            @RequestParam String newPassword, 
+                                            @RequestParam String confirmNewPassword,
+                                            Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(401).body(java.util.Map.of("message", "Giriş yapmalısınız."));
         }
         
-        mediator.send(new ChangeUserPasswordCommand(user.getId(), oldPassword, newPassword));
-        return "redirect:/profile/" + user.getUsername();
+        User user = userService.getByUserName(principal.getName());
+        if (user == null) {
+            return ResponseEntity.status(404).body(java.util.Map.of("message", "Kullanıcı bulunamadı."));
+        }
+        
+        mediator.send(new ChangeUserPasswordCommand(user.getId(), oldPassword, newPassword, confirmNewPassword));
+        return ResponseEntity.ok(java.util.Map.of("message", "Şifre başarıyla değiştirildi."));
     }
 }

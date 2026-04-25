@@ -50,14 +50,24 @@
                             <h5 class="mb-0 text-center">Şifre Değiştir</h5>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/profile/change-password}" method="post">
+                            <div id="password-alert" class="alert d-none"></div>
+                            <form id="changePasswordForm">
                                 <div class="mb-3">
                                     <input type="password" name="oldPassword" class="form-control bg-dark text-white border-secondary" placeholder="Eski Şifre" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" name="newPassword" class="form-control bg-dark text-white border-secondary" placeholder="Yeni Şifre" required>
+                                    <input type="password" id="newPassword" name="newPassword" class="form-control bg-dark text-white border-secondary" placeholder="Yeni Şifre" required>
+                                    <div class="progress mt-2" style="height: 5px;">
+                                        <div id="password-strength-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                    <small id="password-strength-text" class="text-muted d-block mt-1"></small>
+                                    <small id="new-password-error" class="text-danger d-none mt-1">Yeni şifre en az 6 karakter olmalıdır.</small>
                                 </div>
-                                <button type="submit" class="btn btn-success w-100">Kaydet</button>
+                                <div class="mb-3">
+                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control bg-dark text-white border-secondary" placeholder="Yeni Şifre (Tekrar)" required>
+                                    <small id="confirm-password-error" class="text-danger d-none mt-1">Şifreler birbiriyle uyuşmuyor.</small>
+                                </div>
+                                <button type="submit" id="changePasswordBtn" class="btn btn-success w-100">Kaydet</button>
                             </form>
                         </div>
                     </div>
@@ -66,6 +76,121 @@
         </div>
     </div>
 </div>
+
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function() {
+            const newPasswordInput = $('#newPassword');
+            const confirmNewPasswordInput = $('#confirmNewPassword');
+            const newPasswordError = $('#new-password-error');
+            const confirmPasswordError = $('#confirm-password-error');
+            const changePasswordBtn = $('#changePasswordBtn');
+
+            function validatePasswords() {
+                const newPassword = newPasswordInput.val();
+                const confirmNewPassword = confirmNewPasswordInput.val();
+                let isValid = true;
+
+                // Anlık güç kontrolü
+                checkPasswordStrength(newPassword);
+
+                // Uzunluk kontrolü
+                if (newPassword.length > 0 && newPassword.length < 6) {
+                    newPasswordError.removeClass('d-none');
+                    isValid = false;
+                } else {
+                    newPasswordError.addClass('d-none');
+                }
+
+                // Eşleşme kontrolü
+                if (confirmNewPassword.length > 0 && newPassword !== confirmNewPassword) {
+                    confirmPasswordError.removeClass('d-none');
+                    isValid = false;
+                } else {
+                    confirmPasswordError.addClass('d-none');
+                }
+
+                // Buton durumunu güncelle (İsteğe bağlı, ancak kullanıcı her zaman basabilmek istiyorsa kaldırılabilir)
+                // changePasswordBtn.prop('disabled', !isValid || newPassword.length === 0 || confirmNewPassword.length === 0);
+                
+                return isValid;
+            }
+
+            newPasswordInput.on('input', validatePasswords);
+            confirmNewPasswordInput.on('input', validatePasswords);
+
+            $('#changePasswordForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                if (!validatePasswords()) {
+                    return;
+                }
+                
+                const alert = $('#password-alert');
+                const formData = $(this).serialize();
+                
+                $.ajax({
+                    url: '/profile/change-password',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        const msg = (typeof response === 'object' && response.message) ? response.message : response;
+                        alert.removeClass('d-none alert-danger').addClass('alert-success').text(msg);
+                        $('#changePasswordForm')[0].reset();
+                        checkPasswordStrength('');
+                        newPasswordError.addClass('d-none');
+                        confirmPasswordError.addClass('d-none');
+                    },
+                    error: function(xhr) {
+                        let errorMsg = 'Bir hata oluştu.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        } else if (xhr.responseText) {
+                            try {
+                                const json = JSON.parse(xhr.responseText);
+                                errorMsg = json.message || xhr.responseText;
+                            } catch(e) {
+                                errorMsg = xhr.responseText;
+                            }
+                        }
+                        alert.removeClass('d-none alert-success').addClass('alert-danger').text(errorMsg);
+                    }
+                });
+            });
+        });
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            const bar = $('#password-strength-bar');
+            const text = $('#password-strength-text');
+
+            if (password.length === 0) {
+                bar.css('width', '0%');
+                text.text('').removeClass('text-danger text-warning text-success');
+                return;
+            }
+
+            if (password.length >= 6) strength += 20;
+            if (password.match(/[a-z]+/)) strength += 20;
+            if (password.match(/[A-Z]+/)) strength += 20;
+            if (password.match(/[0-9]+/)) strength += 20;
+            if (password.match(/[$@#&!]+/)) strength += 20;
+
+            bar.css('width', strength + '%');
+
+            if (strength < 40) {
+                bar.attr('class', 'progress-bar bg-danger');
+                text.text('Zayıf şifre').attr('class', 'text-danger d-block mt-1');
+            } else if (strength < 80) {
+                bar.attr('class', 'progress-bar bg-warning');
+                text.text('Orta derece şifre').attr('class', 'text-warning d-block mt-1');
+            } else {
+                bar.attr('class', 'progress-bar bg-success');
+                text.text('Güçlü şifre').attr('class', 'text-success d-block mt-1');
+            }
+        }
+    </script>
+</th:block>
 
 </body>
 </html>
