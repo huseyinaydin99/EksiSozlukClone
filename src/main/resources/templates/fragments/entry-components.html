@@ -16,12 +16,12 @@
         <div class="container p-0">
             <span class="d-flex align-items-center">
                 <!-- Vote Section -->
-                <a class="p-1" title="Oy ver!" th:onclick="'voteEntry(\'' + ${entry.id} + '\', \'UPVOTE\')'" style="cursor:pointer">
+                <a class="p-1" title="Oy ver!" th:data-id="${entry.id}" data-type="UPVOTE" onclick="voteEntry(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
                     <span class="oi oi-arrow-top entry-vote"
                           th:id="'entry-upvote-' + ${entry.id}"
                           th:classappend="${entry.voteType == 2 ? 'text-success' : 'text-secondary'}"></span>
                 </a>
-                <a class="p-3" title="Oy verme!" th:onclick="'voteEntry(\'' + ${entry.id} + '\', \'DOWNVOTE\')'" style="cursor:pointer">
+                <a class="p-3" title="Oy verme!" th:data-id="${entry.id}" data-type="DOWNVOTE" onclick="voteEntry(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
                     <span class="oi oi-arrow-bottom entry-vote"
                           th:id="'entry-downvote-' + ${entry.id}"
                           th:classappend="${entry.voteType == 1 ? 'text-danger' : 'text-secondary'}"></span>
@@ -30,7 +30,8 @@
                 <!-- Favorite Section -->
                 <span class="entry-fav p-3"
                       th:id="'entry-fav-' + ${entry.id}"
-                      th:onclick="'favoriteEntry(\'' + ${entry.id} + '\')'"
+                      th:data-id="${entry.id}"
+                      onclick="favoriteEntry(this.getAttribute('data-id'))"
                       style="cursor:pointer"
                       th:classappend="${entry.isFavorited ? 'entry-faved' : 'entry-not-faved'}"
                       th:if="${#authorization.expression('isAuthenticated()')}">
@@ -52,12 +53,12 @@
         <div class="container p-0">
             <span class="d-flex align-items-center">
                 <!-- Vote Section -->
-                <a class="p-1" title="Oy ver!" th:onclick="'voteComment(\'' + ${comment.id} + '\', \'UPVOTE\')'" style="cursor:pointer">
+                <a class="p-1" title="Oy ver!" th:data-id="${comment.id}" data-type="UPVOTE" onclick="voteComment(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
                     <span class="oi oi-arrow-top entry-vote"
                           th:id="'comment-upvote-' + ${comment.id}"
                           th:classappend="${comment.voteType == 2 ? 'text-success' : 'text-secondary'}"></span>
                 </a>
-                <a class="p-3" title="Oy verme!" th:onclick="'voteComment(\'' + ${comment.id} + '\', \'DOWNVOTE\')'" style="cursor:pointer">
+                <a class="p-3" title="Oy verme!" th:data-id="${comment.id}" data-type="DOWNVOTE" onclick="voteComment(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
                     <span class="oi oi-arrow-bottom entry-vote"
                           th:id="'comment-downvote-' + ${comment.id}"
                           th:classappend="${comment.voteType == 1 ? 'text-danger' : 'text-secondary'}"></span>
@@ -66,7 +67,8 @@
                 <!-- Favorite Section -->
                 <span class="entry-fav p-3"
                       th:id="'comment-fav-' + ${comment.id}"
-                      th:onclick="'favoriteComment(\'' + ${comment.id} + '\')'"
+                      th:data-id="${comment.id}"
+                      onclick="favoriteComment(this.getAttribute('data-id'))"
                       style="cursor:pointer"
                       th:classappend="${comment.isFavorited ? 'entry-faved' : 'entry-not-faved'}"
                       th:if="${#authorization.expression('isAuthenticated()')}">

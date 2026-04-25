@@ -4,6 +4,7 @@
 <body>
     <div layout:fragment="content">
         <div th:replace="~{fragments/entry-list :: entry-list(entries=${entries})}"></div>
+        <div th:replace="~{fragments/paging :: paging(pageData=${pageData})}"></div>
     </div>
 </body>
 </html>

@@ -11,13 +11,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Lazy;
 import tr.com.huseyinaydin.repository.UserRepository;
 
 @Configuration
-@RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
+
+    public ApplicationConfig(@Lazy UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {

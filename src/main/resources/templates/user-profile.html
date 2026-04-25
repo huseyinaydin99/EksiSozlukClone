@@ -8,11 +8,16 @@
 <body>
 
 <div layout:fragment="content">
-    <div class="user-profile-header mb-4 p-3 bg-darker rounded">
-        <h2 class="text-success" th:text="${user.userName}">Username</h2>
-        <p class="text-secondary" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
-        <hr class="border-secondary">
+    <div class="user-profile-header mb-4 p-3 bg-darker rounded d-flex justify-content-between align-items-start">
+        <div>
+            <h2 class="text-success" th:text="${user.userName}">Username</h2>
+            <p class="text-secondary" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
+        </div>
+        <div sec:authorize="isAuthenticated()" th:if="${#authentication.name == user.userName}">
+            <a th:href="@{/profile/edit}" class="btn btn-sm btn-outline-success">ayarlar</a>
+        </div>
     </div>
+    <hr class="border-secondary">
 
     <div class="user-entries">
         <h4 class="mb-3">yazdığı entry'ler</h4>

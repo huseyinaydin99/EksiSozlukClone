@@ -13,28 +13,29 @@ public class MediatorImpl implements Mediator {
     @Override
     @SuppressWarnings("unchecked")
     public <R> R send(Request<R> request) {
-        Class<?> responseType = getResponseType(request);
-        ResolvableType handlerType = ResolvableType.forClassWithGenerics(RequestHandler.class, request.getClass(), responseType);
-        
+        ResolvableType requestType = ResolvableType.forClass(request.getClass());
+        ResolvableType responseType = ResolvableType.NONE;
+
+        for (ResolvableType iface : requestType.getInterfaces()) {
+            if (iface.getRawClass() == Request.class) {
+                responseType = iface.getGeneric(0);
+                break;
+            }
+        }
+
+        if (responseType == ResolvableType.NONE) {
+            throw new RuntimeException("Request interface not found on " + request.getClass().getName());
+        }
+
+        ResolvableType handlerType = ResolvableType.forClassWithGenerics(RequestHandler.class, requestType, responseType);
         String[] beanNames = applicationContext.getBeanNamesForType(handlerType);
         
         if (beanNames.length == 0) {
-            throw new RuntimeException("No handler found for request: " + request.getClass().getName());
+            throw new RuntimeException("No handler found for request: " + request.getClass().getName() + " with response type: " + responseType);
         }
 
         RequestHandler<Request<R>, R> handler = (RequestHandler<Request<R>, R>) applicationContext.getBean(beanNames[0]);
         return handler.handle(request);
     }
 
-    private Class<?> getResponseType(Request<?> request) {
-        for (java.lang.reflect.Type interfaceType : request.getClass().getGenericInterfaces()) {
-            if (interfaceType instanceof java.lang.reflect.ParameterizedType) {
-                java.lang.reflect.ParameterizedType parameterizedType = (java.lang.reflect.ParameterizedType) interfaceType;
-                if (parameterizedType.getRawType().equals(Request.class)) {
-                    return (Class<?>) parameterizedType.getActualTypeArguments()[0];
-                }
-            }
-        }
-        return Object.class;
-    }
 }

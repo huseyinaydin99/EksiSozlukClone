@@ -16,5 +16,10 @@ public interface EntryMapper {
     EntryDetailDto toDetailDto(Entry entry);
 
     @Mapping(target = "commentCount", expression = "java(entry.getEntryComments() != null ? entry.getEntryComments().size() : 0)")
+    @Mapping(target = "createdByUserName", source = "createdBy.username")
+    @Mapping(target = "createdDate", source = "createDate")
+    @Mapping(target = "favoritedCount", expression = "java(entry.getEntryFavorites() != null ? entry.getEntryFavorites().size() : 0)")
+    @Mapping(target = "isFavorited", ignore = true)
+    @Mapping(target = "voteType", ignore = true)
     EntrySummaryDto toSummaryDto(Entry entry);
 }

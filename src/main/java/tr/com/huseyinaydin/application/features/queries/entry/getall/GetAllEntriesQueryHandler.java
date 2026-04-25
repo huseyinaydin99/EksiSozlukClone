@@ -1,6 +1,7 @@
 package tr.com.huseyinaydin.application.features.queries.entry.getall;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import tr.com.huseyinaydin.application.dto.EntrySummaryDto;
 import tr.com.huseyinaydin.application.mapper.EntryMapper;
@@ -19,8 +20,9 @@ public class GetAllEntriesQueryHandler implements RequestHandler<GetAllEntriesQu
 
     @Override
     public List<EntrySummaryDto> handle(GetAllEntriesQuery request) {
-        List<Entry> entries = entryRepository.findAll();
-        return entries.stream()
+        return entryRepository.findAll(PageRequest.of(request.getPage(), request.getPageSize()))
+                .getContent()
+                .stream()
                 .map(entryMapper::toSummaryDto)
                 .collect(Collectors.toList());
     }

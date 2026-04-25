@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-circular-references: false
   application:
     name: EksiSozlukClone
   datasource:
@@ -16,7 +18,7 @@ spring:
       ddl-auto: none
     show-sql: true
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/db.changelog-master.xml
   flyway:
     enabled: true

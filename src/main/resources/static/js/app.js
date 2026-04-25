@@ -68,3 +68,38 @@ function updateFavoriteUI(type, id) {
         favCount.innerText = count + 1;
     }
 }
+
+// Autocomplete Search
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('autocomplete-results');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', async function() {
+            const term = this.value;
+            if (term.length < 2) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+
+            const response = await fetch(`/api/topics/search?term=${term}`);
+            if (response.ok) {
+                const results = await response.json();
+                if (results.length > 0) {
+                    resultsContainer.innerHTML = results.map(topic => 
+                        `<a href="/search?term=${topic}" class="list-group-item list-group-item-action bg-dark text-white border-secondary">${topic}</a>`
+                    ).join('');
+                    resultsContainer.style.display = 'block';
+                } else {
+                    resultsContainer.style.display = 'none';
+                }
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target !== searchInput) {
+                resultsContainer.style.display = 'none';
+            }
+        });
+    }
+});

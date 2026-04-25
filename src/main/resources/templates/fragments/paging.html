@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="paging(pageData)" class="d-flex justify-content-between align-items-center mt-4">
+    <div class="small text-secondary">
+        Toplam <span th:text="${pageData.totalElements}">0</span> entry
+    </div>
+    <nav th:if="${pageData.totalPages > 1}">
+        <ul class="pagination pagination-sm mb-0">
+            <li class="page-item" th:classappend="${pageData.first} ? 'disabled'">
+                <a class="page-link bg-dark border-secondary text-success" 
+                   th:href="@{${#httpServletRequest.requestURI}(page=${pageData.number - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, pageData.totalPages - 1)}"
+                th:classappend="${i == pageData.number} ? 'active'">
+                <a class="page-link border-secondary" 
+                   th:classappend="${i == pageData.number} ? 'bg-success text-white' : 'bg-dark text-success'"
+                   th:href="@{${#httpServletRequest.requestURI}(page=${i})}" th:text="${i + 1}">1</a>
+            </li>
+
+            <li class="page-item" th:classappend="${pageData.last} ? 'disabled'">
+                <a class="page-link bg-dark border-secondary text-success" 
+                   th:href="@{${#httpServletRequest.requestURI}(page=${pageData.number + 1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</html>

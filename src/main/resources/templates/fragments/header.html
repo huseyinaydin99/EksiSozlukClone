@@ -4,17 +4,19 @@
 <nav th:fragment="header" class="navbar navbar-expand-lg sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand logo" th:href="@{/}">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_yeni_logo.svg/2560px-Ek%C5%9Fi_S%C3%B6zl%C3%BCk_yeni_logo.svg.png" alt="Logo">
+            <img th:src="@{/images/eksi_sozluk_logo.png}" alt="Logo" style="width:120px; height:auto; background-color:white; border-radius:10px; padding:14px 14px; display:inline-block;">
         </a>
 
-        <div class="mx-auto w-50">
+        <div class="mx-auto w-50 position-relative">
             <div class="input-group">
-                <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="sözlükte ara">
+                <input type="text" id="searchInput" class="form-control bg-dark text-white border-secondary" placeholder="sözlükte ara" autocomplete="off">
                 <div class="input-group-append">
                     <button class="btn btn-sozluk" type="button">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+            </div>
+            <div id="autocomplete-results" class="list-group position-absolute w-100" style="z-index: 1000; display: none;">
             </div>
         </div>
 
