@@ -40,8 +40,9 @@ public class EntryMvcController extends BaseMvcController {
     public String createEntry(@ModelAttribute CreateEntryCommand command, Principal principal) {
         if (principal == null) return "redirect:/auth/login";
 
-        User user = userRepository.findByEmailAddress(principal.getName())
-                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+        User user = userRepository.findByUserName(principal.getName())
+                .orElseGet(() -> userRepository.findByEmailAddress(principal.getName())
+                        .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı")));
 
         command.setCreatedById(user.getId());
         UUID entryId = mediator.send(command);
@@ -50,23 +51,26 @@ public class EntryMvcController extends BaseMvcController {
     }
 
     @PostMapping("/comment")
-    public String createComment(@RequestParam UUID entryId, 
-                                @RequestParam String content, 
-                                @AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
+    public String createComment(@RequestParam UUID entryId,
+                                @RequestParam String content,
+                                Principal principal) {
+        if (principal == null) {
             return "redirect:/auth/login";
         }
-        
+
+        User user = userRepository.findByUserName(principal.getName())
+                .orElseGet(() -> userRepository.findByEmailAddress(principal.getName())
+                        .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı")));
+
         Entry entry = entryService.getById(entryId);
-        User user = (User) userDetails;
-        
+
         EntryComment comment = new EntryComment();
         comment.setContent(content);
         comment.setEntry(entry);
         comment.setCreatedBy(user);
-        
+
         entryCommentService.create(comment);
-        
+
         return "redirect:/entry/" + entryId;
     }
 }
