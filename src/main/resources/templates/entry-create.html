@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>yeni entry oluştur</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-header border-secondary">
+                    <h4 class="mb-0 text-success">yeni entry oluştur</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/entry/create}" th:object="${command}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small">başlık</label>
+                            <input type="text" th:field="*{subject}" class="form-control bg-dark text-white border-secondary" placeholder="başlık giriniz..." required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small">içerik</label>
+                            <textarea th:field="*{content}" class="form-control bg-dark text-white border-secondary" rows="10" placeholder="entry içeriğini buraya yazınız..." required></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">paylaş</button>
+                            <a th:href="@{/}" class="btn btn-outline-secondary">vazgeç</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

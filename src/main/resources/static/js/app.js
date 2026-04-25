@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const results = await response.json();
                 if (results.length > 0) {
                     resultsContainer.innerHTML = results.map(topic => 
-                        `<a href="/search?term=${topic}" class="list-group-item list-group-item-action bg-dark text-white border-secondary">${topic}</a>`
+                        `<a href="/search?term=${encodeURIComponent(topic)}" class="list-group-item list-group-item-action bg-dark text-white border-secondary">${topic}</a>`
                     ).join('');
                     resultsContainer.style.display = 'block';
                 } else {

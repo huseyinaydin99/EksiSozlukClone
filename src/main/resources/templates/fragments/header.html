@@ -22,6 +22,8 @@
 
         <div class="ml-auto d-flex align-items-center">
             <div sec:authorize="isAuthenticated()" class="d-flex align-items-center">
+                <a th:href="@{/entry/create}" class="btn btn-sm btn-success mr-2">entry oluştur</a>
+                <a th:href="@{'/profile/' + ${#authentication.name}}" class="btn btn-sm btn-outline-success mr-3">profilim</a>
                 <span class="mr-3 small text-success" sec:authentication="name">Kullanıcı</span>
                 <a th:href="@{/auth/logout}" class="btn btn-sm btn-outline-danger">çıkış yap</a>
             </div>

@@ -29,13 +29,22 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
+                                "/entry/create",
+                                "/profile/edit",
+                                "/profile/update"
+                        ).authenticated()
+                        .requestMatchers(
+                                "/",
                                 "/entry/**",
                                 "/auth/**",
                                 "/h2-console/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/api/topics/**",
+                                "/search/**",
+                                "/profile/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

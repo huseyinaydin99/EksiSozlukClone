@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import tr.com.huseyinaydin.application.dto.EntryCommentDto;
 import tr.com.huseyinaydin.application.dto.EntryDetailDto;
 import tr.com.huseyinaydin.application.dto.EntrySummaryDto;
 import tr.com.huseyinaydin.application.features.queries.entry.getall.GetAllEntriesQuery;
@@ -39,9 +40,21 @@ public class HomeController extends BaseMvcController {
         EntryDetailDto entryDetail = entryMapper.toDetailDto(entry);
         model.addAttribute("entry", entryDetail);
         
-        var comments = entryCommentService.getByEntryId(id);
+        List<EntryCommentDto> comments = entryCommentService.getByEntryId(id)
+                .stream()
+                .map(entryCommentMapper::toDto)
+                .toList();
         model.addAttribute("comments", comments);
         
         return "entry-detail";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam String term) {
+        List<Entry> entries = entryService.searchBySubject(term);
+        if (!entries.isEmpty()) {
+            return "redirect:/entry/" + entries.get(0).getId();
+        }
+        return "redirect:/";
     }
 }

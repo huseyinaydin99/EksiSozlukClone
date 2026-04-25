@@ -8,7 +8,7 @@
         <ul class="pagination pagination-sm mb-0">
             <li class="page-item" th:classappend="${pageData.first} ? 'disabled'">
                 <a class="page-link bg-dark border-secondary text-success" 
-                   th:href="@{${#httpServletRequest.requestURI}(page=${pageData.number - 1})}" aria-label="Previous">
+                   th:href="@{''(page=${pageData.number - 1})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -17,12 +17,12 @@
                 th:classappend="${i == pageData.number} ? 'active'">
                 <a class="page-link border-secondary" 
                    th:classappend="${i == pageData.number} ? 'bg-success text-white' : 'bg-dark text-success'"
-                   th:href="@{${#httpServletRequest.requestURI}(page=${i})}" th:text="${i + 1}">1</a>
+                   th:href="@{''(page=${i})}" th:text="${i + 1}">1</a>
             </li>
 
             <li class="page-item" th:classappend="${pageData.last} ? 'disabled'">
                 <a class="page-link bg-dark border-secondary text-success" 
-                   th:href="@{${#httpServletRequest.requestURI}(page=${pageData.number + 1})}" aria-label="Next">
+                   th:href="@{''(page=${pageData.number + 1})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
