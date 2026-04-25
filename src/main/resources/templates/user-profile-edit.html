@@ -9,63 +9,73 @@
 
 <div layout:fragment="content">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card profile-edit-card">
+        <div class="col-md-8 col-lg-7">
+            <div class="card profile-edit-card border-0">
                 <div class="card-header profile-edit-header">
-                    <h4 class="mb-0 text-center">bilgilerini güncelle</h4>
+                    <h2 class="mb-0 h4 font-weight-bold" style="letter-spacing: -0.5px;">bilgilerini güncelle</h2>
                 </div>
-                <div class="card-body p-4">
-                    <form th:action="@{/profile/update}" method="post">
+                <div class="card-body p-4 p-md-5">
+                    <form th:action="@{/profile/update}" method="post" class="mb-5">
                         <input type="hidden" name="id" th:value="${user.id}">
                         
-                        <div class="input-group mb-3">
-                            <span class="input-group-text sozluk-input-group-text">kullanıcı adı</span>
+                        <div class="form-group mb-4">
+                            <label class="small text-muted text-uppercase font-weight-bold mb-2">kullanıcı adı</label>
                             <input type="text" name="userName" class="form-control sozluk-form-control" th:value="${user.userName}" required>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text sozluk-input-group-text">adı</span>
-                            <input type="text" name="firstName" class="form-control sozluk-form-control" th:value="${user.firstName}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="small text-muted text-uppercase font-weight-bold mb-2">adı</label>
+                                    <input type="text" name="firstName" class="form-control sozluk-form-control" th:value="${user.firstName}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="small text-muted text-uppercase font-weight-bold mb-2">soyadı</label>
+                                    <input type="text" name="lastName" class="form-control sozluk-form-control" th:value="${user.lastName}">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text sozluk-input-group-text">soyadı</span>
-                            <input type="text" name="lastName" class="form-control sozluk-form-control" th:value="${user.lastName}">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text sozluk-input-group-text">e-posta</span>
+                        <div class="form-group mb-4">
+                            <label class="small text-muted text-uppercase font-weight-bold mb-2">e-posta</label>
                             <input type="email" name="emailAddress" class="form-control sozluk-form-control" th:value="${user.emailAddress}" required>
                         </div>
 
-                        <div class="mt-4">
-                            <button type="submit" class="btn btn-success btn-sozluk px-5">güncelle</button>
+                        <div class="mt-4 pt-2">
+                            <button type="submit" class="btn btn-success btn-sozluk btn-block shadow-sm">bilgileri kaydet</button>
                         </div>
                     </form>
 
-                    <div class="card password-change-card">
-                        <div class="card-header password-change-header">
-                            <h5 class="mb-0">şifre değiştir</h5>
+                    <div class="password-change-card border-secondary">
+                        <div class="password-change-header">
+                            <h3 class="mb-0 h5 font-weight-bold">şifre değiştir</h3>
                         </div>
-                        <div class="card-body">
-                            <div id="password-alert" class="alert d-none"></div>
+                        <div class="card-body p-4">
+                            <div id="password-alert" class="alert d-none mb-4"></div>
                             <form id="changePasswordForm">
-                                <div class="mb-3">
-                                    <input type="password" name="oldPassword" class="form-control sozluk-form-control" placeholder="eski şifre" required>
+                                <div class="form-group mb-4">
+                                    <label class="small text-muted text-uppercase font-weight-bold mb-2">eski şifre</label>
+                                    <input type="password" name="oldPassword" class="form-control sozluk-form-control" placeholder="mevcut şifreniz" required>
                                 </div>
-                                <div class="mb-3">
-                                    <input type="password" id="newPassword" name="newPassword" class="form-control sozluk-form-control" placeholder="yeni şifre" required>
-                                    <div class="progress mt-2" style="height: 6px;">
+                                <div class="form-group mb-4">
+                                    <label class="small text-muted text-uppercase font-weight-bold mb-2">yeni şifre</label>
+                                    <input type="password" id="newPassword" name="newPassword" class="form-control sozluk-form-control" placeholder="en az 6 karakter" required>
+                                    <div class="progress mt-3">
                                         <div id="password-strength-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
-                                    <small id="password-strength-text" class="text-muted d-block mt-1"></small>
-                                    <small id="new-password-error" class="text-danger d-none mt-1">yeni şifre en az 6 karakter olmalıdır.</small>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <small id="password-strength-text" class="text-muted"></small>
+                                        <small id="new-password-error" class="text-danger d-none">minimum 6 karakter olmalı</small>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control sozluk-form-control" placeholder="yeni şifre (tekrar)" required>
-                                    <small id="confirm-password-error" class="text-danger d-none mt-1">şifreler birbiriyle uyuşmuyor.</small>
+                                <div class="form-group mb-4">
+                                    <label class="small text-muted text-uppercase font-weight-bold mb-2">yeni şifre (tekrar)</label>
+                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control sozluk-form-control" placeholder="yeni şifreyi onaylayın" required>
+                                    <small id="confirm-password-error" class="text-danger d-none mt-2 d-block">şifreler birbiriyle uyuşmuyor.</small>
                                 </div>
-                                <button type="submit" id="changePasswordBtn" class="btn btn-outline-success w-100">şifreyi güncelle</button>
+                                <button type="submit" id="changePasswordBtn" class="btn btn-outline-success btn-block py-2">şifreyi güncelle</button>
                             </form>
                         </div>
                     </div>

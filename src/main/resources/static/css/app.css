@@ -6,18 +6,34 @@ html, body {
     color: #bdbdbd;
 }
 
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1c1c1c;
+}
+::-webkit-scrollbar-thumb {
+    background: #3e3e3e;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #4e4e4e;
+}
+
 h1:focus {
     outline: none;
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: #53a245;
 }
 
 a {
     text-decoration: none;
     color: #bdbdbd;
     font-size: 14px;
+    transition: color 0.2s ease-in-out;
 }
 
 a:hover, a:focus, a:active {
@@ -25,34 +41,100 @@ a:hover, a:focus, a:active {
     color: #53a245;
 }
 
-input:not([type="button"]).form-control {
-    background-color: #474747;
-    color: white;
-    border-color: #474747;
+.text-muted {
+    color: #888 !important;
 }
 
-input:focus {
-    background-color: #494949 !important;
+input:not([type="button"]).form-control, textarea.form-control {
+    background-color: #2d2d2d;
+    color: white;
+    border: 1px solid #3e3e3e;
+}
+
+input:focus, textarea.form-control:focus {
+    background-color: #333333 !important;
     color: white !important;
+    border-color: #53a245 !important;
+    box-shadow: 0 0 0 0.2rem rgba(83, 162, 69, 0.15) !important;
 }
 
 label {
     color: #bdbdbd;
+    font-weight: 500;
 }
 
+.btn-sozluk {
+    background-color: #53a245;
+    border-color: #53a245;
+    color: white !important;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 6px 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-sozluk:hover {
+    background-color: #4a913e;
+    border-color: #4a913e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(83, 162, 69, 0.2);
+}
+
+.btn-outline-sozluk {
+    background-color: transparent;
+    border: 1px solid #53a245;
+    color: #53a245 !important;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 6px 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-sozluk:hover {
+    background-color: #53a245;
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+.user-info-badge {
+    background: #2d2d2d;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid #3e3e3e;
+    color: #53a245;
+    font-weight: 600;
+}
+
+.gap-2 {
+    gap: 0.75rem !important;
+}
+
+/* Existing button styles... */
 .btn-success.btn-sozluk {
     color: white;
-    background-color: #68a138;
-    border-color: #3e6121;
-    font-size: 13px;
+    background-color: #53a245;
+    border-color: #53a245;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    transition: all 0.2s;
 }
 
 .btn-success.btn-sozluk:hover {
-    background-color: #5c8e31;
+    background-color: #4a913e;
+    border-color: #4a913e;
+    transform: translateY(-1px);
 }
 
-.btn-success.btn-sozluk:focus, :active {
-    box-shadow: none;
+.btn-outline-success {
+    color: #53a245;
+    border-color: #53a245;
+}
+
+.btn-outline-success:hover {
+    background-color: #53a245;
+    border-color: #53a245;
+    color: white;
 }
 
 .btn-primary {
@@ -64,35 +146,55 @@ label {
 .list-group-item {
     background-color: #1c1c1c;
     color: #bdbdbd;
-    padding: 8px 10px 8px 2px;
+    padding: 8px 10px 8px 12px;
     border: none;
+    border-left: 3px solid transparent;
 }
 
 .list-group-item a {
     color: #bdbdbd;
     font-size: 14px;
+    display: block;
 }
 
 .list-group-item:hover {
-    background-color: #1f1f1f;
-    text-decoration: none;
+    background-color: #252525;
+    border-left: 3px solid #53a245;
+}
+
+.list-group-item.active {
+    background-color: #252525;
+    border-left: 3px solid #53a245;
 }
 
 .entry-subject {
-    color: #bdbdbd;
-    font-size: 1.25rem;
+    color: #53a245;
+    font-size: 1.5rem;
     font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .entry-content {
-    color: #bdbdbd;
-    font-size: 16px;
+    color: #e0e0e0;
+    font-size: 15px;
+    line-height: 1.6;
     white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 10px;
 }
 
 .entry-author {
     color: #53a245;
     font-size: 13px;
+    font-weight: 600;
 }
 
 .entry-author a {
@@ -104,91 +206,157 @@ label {
 }
 
 .entry-date {
-    color: #bdbdbd;
+    color: #777;
     font-size: 12px;
 }
 
 .entry-date a {
-    color: #666666;
+    color: #777;
 }
 
-.entry-date a:hover, a:focus {
-    cursor: auto;
-    text-decoration: none;
+.entry-item {
+    border-bottom: 1px solid #2d2d2d;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.entry-item:last-child {
+    border-bottom: none;
 }
 
 .entry-vote {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #252525;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
+.entry-vote .oi {
     cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.entry-vote .oi:hover {
+    color: #53a245;
 }
 
 .entry-fav {
     font-size: 14px;
     cursor: pointer;
+    color: #888;
 }
 
-.entry-faved span {
-    color: #53a245;
-}
-
-.entry-not-faved {
-    color: #bdbdbd;
+.entry-faved {
+    color: #53a245 !important;
 }
 
 .entry-comment-add-container {
-    background-color: #1c1c1c !important;
-    padding: 25px 20px 20px 20px;
+    background-color: #252525 !important;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    border: 1px solid #333;
 }
 
 .entry-comment-textarea {
-    background-color: #494949;
+    background-color: #1c1c1c;
     width: 100%;
     color: white;
-    height: 150px;
-    border-color: #494949;
-    border-radius: 3px;
+    height: 120px;
+    border: 1px solid #3e3e3e;
+    border-radius: 4px;
     outline: none !important;
-    padding: 10px;
+    padding: 12px;
+    resize: vertical;
 }
 
 .card {
-    background-color: #2d2d2d;
-    margin-bottom: 10px;
+    background-color: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .card-body {
+    background-color: #252525;
+    padding: 20px;
+}
+
+.card-header {
     background-color: #2d2d2d;
-    padding: 15px;
+    border-bottom: 1px solid #333;
+    padding: 12px 20px;
+    font-weight: 600;
+}
+
+.navbar-logo {
+    width: 120px;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
 }
 
 .navbar {
-    background-color: #2d2d2d;
-    border-bottom: 1px solid #3e3e3e;
+    background-color: #252525 !important;
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    color: #53a245 !important;
+    font-size: 22px;
+    letter-spacing: -1px;
 }
 
 .sidebar {
     background-color: #1c1c1c;
     border-right: 1px solid #2d2d2d;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 61px);
     overflow-y: auto;
-    padding-top: 20px;
+    padding: 20px 0;
 }
 
 .sub-nav {
     display: flex;
-    gap: 15px;
-    padding: 10px 0;
+    gap: 20px;
+    padding: 0 0 10px 0;
     border-bottom: 1px solid #2d2d2d;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .sub-nav a {
-    color: #bdbdbd;
-    font-size: 13px;
-    font-weight: bold;
+    color: #888;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
 }
 
 .sub-nav a.active {
     color: #53a245;
+}
+
+.sub-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #53a245;
 }
 
 .oi {
@@ -196,52 +364,94 @@ label {
 }
 
 .progress {
-    background-color: #474747;
+    background-color: #333;
+    height: 6px;
+    border-radius: 3px;
 }
 
 .bg-darker {
-    background-color: #252525 !important;
+    background-color: #181818 !important;
 }
 
 /* Profil Güncelleme Sayfası İyileştirmeleri */
 .profile-edit-card {
-    background-color: #2d2d2d;
-    border: 1px solid #3e3e3e;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    background-color: #252525;
+    border: 1px solid #333;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 .profile-edit-header {
-    background-color: #53a245 !important;
-    border-bottom: 1px solid #3e6121;
-    color: white;
+    background-color: #2d2d2d !important;
+    border-bottom: 1px solid #333;
+    color: #53a245;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .sozluk-input-group-text {
-    background-color: #3e3e3e !important;
-    color: #bdbdbd !important;
-    border: 1px solid #474747 !important;
-    min-width: 120px;
+    background-color: #2d2d2d !important;
+    color: #aaa !important;
+    border: 1px solid #3e3e3e !important;
+    min-width: 130px;
+    font-weight: 600;
 }
 
 .sozluk-form-control {
     background-color: #1c1c1c !important;
     color: #ffffff !important;
-    border: 1px solid #474747 !important;
+    border: 1px solid #3e3e3e !important;
+    padding: 10px 15px;
 }
 
 .sozluk-form-control:focus {
     border-color: #53a245 !important;
-    box-shadow: 0 0 0 0.2rem rgba(83, 162, 69, 0.25) !important;
+    box-shadow: 0 0 0 0.2rem rgba(83, 162, 69, 0.1) !important;
 }
 
 .password-change-card {
     background-color: #252525;
-    border: 1px solid #3e3e3e;
-    margin-top: 2rem;
+    border: 1px solid #333;
+    border-radius: 12px;
+    margin-top: 30px;
 }
 
 .password-change-header {
-    background-color: #333333 !important;
+    background-color: #2d2d2d !important;
     color: #53a245 !important;
+    border-bottom: 1px solid #333;
+    padding: 15px 20px;
+    font-weight: 700;
+}
+
+/* Autocomplete styling */
+#autocomplete-results {
+    background-color: #2d2d2d;
+    border: 1px solid #3e3e3e;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+#autocomplete-results .list-group-item {
+    background-color: #2d2d2d;
     border-bottom: 1px solid #3e3e3e;
+    padding: 10px 15px;
+}
+
+#autocomplete-results .list-group-item:last-child {
+    border-bottom: none;
+}
+
+#autocomplete-results .list-group-item:hover {
+    background-color: #3e3e3e;
+}
+
+/* Badge styling */
+.badge-sozluk {
+    background-color: #333;
+    color: #53a245;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 20px;
 }

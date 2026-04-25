@@ -1,5 +1,6 @@
 package tr.com.huseyinaydin.controller.advice;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,5 +19,10 @@ public class GlobalModelAdvice {
     @ModelAttribute("entries")
     public List<EntrySummaryDto> getSidebarEntries() {
         return mediator.send(new GetAllEntriesQuery());
+    }
+
+    @ModelAttribute("requestURI")
+    public String getRequestURI(HttpServletRequest request) {
+        return request.getRequestURI();
     }
 }

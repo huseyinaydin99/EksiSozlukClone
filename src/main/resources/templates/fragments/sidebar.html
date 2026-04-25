@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:fragment="sidebar" class="col-md-3 col-lg-2 d-none d-md-block sidebar">
-    <div class="sidebar-sticky">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>bugün</span>
-            <a class="d-flex align-items-center text-muted" href="#" aria-label="Refresh">
-                <i class="fas fa-sync-alt"></i>
-            </a>
+<nav th:fragment="sidebar" class="col-md-3 col-lg-2 d-none d-md-block sidebar shadow-sm">
+    <div class="sidebar-sticky px-2">
+        <h6 class="sidebar-heading px-3 mt-2 mb-3 text-uppercase small font-weight-bold" style="color: #53a245; letter-spacing: 1px;">
+            sol frame
         </h6>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:each="entryItem : ${entries}">
+        <div class="list-group list-group-flush">
+            <div class="list-group-item" th:each="entryItem : ${entries}" th:classappend="${entry != null and entry.id == entryItem.id ? 'active' : ''}">
                 <a th:href="@{/entry/{id}(id=${entryItem.id})}" th:text="${entryItem.subject}">Entry Subject</a>
-            </li>
-        </ul>
+            </div>
+        </div>
+        
+        <div th:if="${entries == null or entries.empty}" class="px-3 py-4 text-center text-muted small">
+            henüz başlık yok.
+        </div>
     </div>
 </nav>
 </body>

@@ -3,92 +3,93 @@
 <body>
 
 <!-- Entry Viewer Fragment -->
-<div th:fragment="entry-viewer(entry)" class="card border-0">
-    <div class="card-body">
-        <h5 class="card-title">
-            <a th:href="@{/entry/{id}(id=${entry.id})}">
-                <strong class="entry-subject" th:text="${entry.subject}">Subject</strong>
-            </a>
+<div th:fragment="entry-viewer(entry)" class="card border-0 mb-4 bg-transparent">
+    <div class="card-body p-0">
+        <h5 class="card-title mb-3">
+            <a th:href="@{/entry/{id}(id=${entry.id})}" class="entry-subject" th:text="${entry.subject}">Subject</a>
         </h5>
-        <br />
-        <p class="entry-content" th:text="${entry.content}">Content</p>
+        <div class="entry-content mb-4" th:text="${entry.content}">Content</div>
 
-        <div class="container p-0">
-            <span class="d-flex align-items-center">
-                <!-- Vote Section -->
-                <a class="p-1" title="Oy ver!" th:data-id="${entry.id}" data-type="UPVOTE" onclick="voteEntry(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
-                    <span class="oi oi-arrow-top entry-vote"
+        <div class="entry-footer">
+            <div class="d-flex align-items-center gap-3">
+                <div class="entry-vote">
+                    <span class="oi oi-arrow-top"
                           th:id="'entry-upvote-' + ${entry.id}"
-                          th:classappend="${entry.voteType == 2 ? 'text-success' : 'text-secondary'}"></span>
-                </a>
-                <a class="p-3" title="Oy verme!" th:data-id="${entry.id}" data-type="DOWNVOTE" onclick="voteEntry(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
-                    <span class="oi oi-arrow-bottom entry-vote"
+                          th:classappend="${entry.voteType == 2 ? 'text-success' : ''}"
+                          th:data-id="${entry.id}" data-type="UPVOTE" 
+                          onclick="voteEntry(this.getAttribute('data-id'), this.getAttribute('data-type'))"
+                          title="beğen"></span>
+                    
+                    <span class="oi oi-arrow-bottom"
                           th:id="'entry-downvote-' + ${entry.id}"
-                          th:classappend="${entry.voteType == 1 ? 'text-danger' : 'text-secondary'}"></span>
-                </a>
+                          th:classappend="${entry.voteType == 1 ? 'text-danger' : ''}"
+                          th:data-id="${entry.id}" data-type="DOWNVOTE" 
+                          onclick="voteEntry(this.getAttribute('data-id'), this.getAttribute('data-type'))"
+                          title="beğenme"></span>
+                </div>
 
-                <!-- Favorite Section -->
-                <span class="entry-fav p-3"
+                <div class="entry-fav"
                       th:id="'entry-fav-' + ${entry.id}"
                       th:data-id="${entry.id}"
                       onclick="favoriteEntry(this.getAttribute('data-id'))"
-                      style="cursor:pointer"
-                      th:classappend="${entry.isFavorited ? 'entry-faved' : 'entry-not-faved'}"
-                      th:if="${#authorization.expression('isAuthenticated()')}">
+                      th:classappend="${entry.isFavorited ? 'entry-faved' : ''}"
+                      th:if="${#authorization.expression('isAuthenticated()')}"
+                      title="favorilere ekle">
+                    <span class="oi oi-heart mr-1"></span>
                     <span th:id="'entry-fav-count-' + ${entry.id}" th:text="${entry.favoritedCount}">0</span>
-                </span>
-            </span>
-        </div>
+                </div>
+            </div>
 
-        <!-- Author Section -->
-        <div th:replace="~{fragments/entry-components :: entry-footer-author(${entry.createdByUserName}, ${entry.createdDate})}"></div>
+            <div th:replace="~{fragments/entry-components :: entry-footer-author(${entry.createdByUserName}, ${entry.createdDate})}"></div>
+        </div>
     </div>
 </div>
 
 <!-- Comment Viewer Fragment -->
-<div th:fragment="comment-viewer(comment)" class="card border-0">
-    <div class="card-body col-md-12">
-        <p class="entry-content" th:text="${comment.content}">Comment Content</p>
+<div th:fragment="comment-viewer(comment)" class="entry-item">
+    <div class="entry-content mb-3" th:text="${comment.content}">Comment Content</div>
 
-        <div class="container p-0">
-            <span class="d-flex align-items-center">
-                <!-- Vote Section -->
-                <a class="p-1" title="Oy ver!" th:data-id="${comment.id}" data-type="UPVOTE" onclick="voteComment(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
-                    <span class="oi oi-arrow-top entry-vote"
-                          th:id="'comment-upvote-' + ${comment.id}"
-                          th:classappend="${comment.voteType == 2 ? 'text-success' : 'text-secondary'}"></span>
-                </a>
-                <a class="p-3" title="Oy verme!" th:data-id="${comment.id}" data-type="DOWNVOTE" onclick="voteComment(this.getAttribute('data-id'), this.getAttribute('data-type'))" style="cursor:pointer">
-                    <span class="oi oi-arrow-bottom entry-vote"
-                          th:id="'comment-downvote-' + ${comment.id}"
-                          th:classappend="${comment.voteType == 1 ? 'text-danger' : 'text-secondary'}"></span>
-                </a>
+    <div class="entry-footer">
+        <div class="d-flex align-items-center gap-3">
+            <div class="entry-vote">
+                <span class="oi oi-arrow-top"
+                      th:id="'comment-upvote-' + ${comment.id}"
+                      th:classappend="${comment.voteType == 2 ? 'text-success' : ''}"
+                      th:data-id="${comment.id}" data-type="UPVOTE" 
+                      onclick="voteComment(this.getAttribute('data-id'), this.getAttribute('data-type'))"
+                      title="beğen"></span>
+                
+                <span class="oi oi-arrow-bottom"
+                      th:id="'comment-downvote-' + ${comment.id}"
+                      th:classappend="${comment.voteType == 1 ? 'text-danger' : ''}"
+                      th:data-id="${comment.id}" data-type="DOWNVOTE" 
+                      onclick="voteComment(this.getAttribute('data-id'), this.getAttribute('data-type'))"
+                      title="beğenme"></span>
+            </div>
 
-                <!-- Favorite Section -->
-                <span class="entry-fav p-3"
-                      th:id="'comment-fav-' + ${comment.id}"
-                      th:data-id="${comment.id}"
-                      onclick="favoriteComment(this.getAttribute('data-id'))"
-                      style="cursor:pointer"
-                      th:classappend="${comment.isFavorited ? 'entry-faved' : 'entry-not-faved'}"
-                      th:if="${#authorization.expression('isAuthenticated()')}">
-                    <span th:id="'comment-fav-count-' + ${comment.id}" th:text="${comment.favoritedCount}">0</span>
-                </span>
-            </span>
+            <div class="entry-fav"
+                  th:id="'comment-fav-' + ${comment.id}"
+                  th:data-id="${comment.id}"
+                  onclick="favoriteComment(this.getAttribute('data-id'))"
+                  th:classappend="${comment.isFavorited ? 'entry-faved' : ''}"
+                  th:if="${#authorization.expression('isAuthenticated()')}"
+                  title="favorilere ekle">
+                <span class="oi oi-heart mr-1"></span>
+                <span th:id="'comment-fav-count-' + ${comment.id}" th:text="${comment.favoritedCount}">0</span>
+            </div>
         </div>
 
-        <!-- Author Section -->
         <div th:replace="~{fragments/entry-components :: entry-footer-author(${comment.createdByUserName}, ${comment.createdDate})}"></div>
     </div>
 </div>
 
 <!-- Footer Author Fragment -->
-<div th:fragment="entry-footer-author(userName, createDate)" class="card text-end border-0 bg-transparent mt-3">
-    <div class="entry-author text-right">
+<div th:fragment="entry-footer-author(userName, createDate)" class="text-right">
+    <div class="entry-author">
         <a th:href="@{/profile/{user}(user=${userName})}" th:text="${userName}">User</a>
     </div>
-    <div class="entry-date text-right">
-        <a href="#" th:text="${#temporals.format(createDate, 'dd.MM.yyyy HH:mm:ss')}">01.01.2024 00:00:00</a>
+    <div class="entry-date mt-1">
+        <span th:text="${#temporals.format(createDate, 'dd.MM.yyyy HH:mm')}">01.01.2024 00:00</span>
     </div>
 </div>
 

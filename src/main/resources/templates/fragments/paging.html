@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="paging(pageData)" class="d-flex justify-content-between align-items-center mt-4">
-    <div class="small text-secondary">
-        Toplam <span th:text="${pageData.totalElements}">0</span> entry
+<div th:fragment="paging(pageData)" class="d-flex justify-content-between align-items-center mt-5 mb-5 pb-5">
+    <div class="small text-muted font-italic">
+        toplam <span class="text-success font-weight-bold" th:text="${pageData.totalElements}">0</span> entry
     </div>
     <nav th:if="${pageData.totalPages > 1}">
         <ul class="pagination pagination-sm mb-0">
             <li class="page-item" th:classappend="${pageData.first} ? 'disabled'">
-                <a class="page-link bg-dark border-secondary text-success" 
+                <a class="page-link border-secondary bg-darker text-success px-3" 
                    th:href="@{''(page=${pageData.number - 1})}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                    <span aria-hidden="true">&lsaquo;</span>
                 </a>
             </li>
             
-            <li class="page-item" th:each="i : ${#numbers.sequence(0, pageData.totalPages - 1)}"
-                th:classappend="${i == pageData.number} ? 'active'">
-                <a class="page-link border-secondary" 
-                   th:classappend="${i == pageData.number} ? 'bg-success text-white' : 'bg-dark text-success'"
+            <li class="page-item mx-1" th:each="i : ${#numbers.sequence(0, pageData.totalPages - 1)}"
+                th:classappend="${i == pageData.number} ? 'active'"
+                th:if="${i >= pageData.number - 2 and i <= pageData.number + 2}">
+                <a class="page-link border-secondary rounded" 
+                   th:classappend="${i == pageData.number} ? 'bg-success text-white' : 'bg-darker text-success'"
                    th:href="@{''(page=${i})}" th:text="${i + 1}">1</a>
             </li>
 
             <li class="page-item" th:classappend="${pageData.last} ? 'disabled'">
-                <a class="page-link bg-dark border-secondary text-success" 
+                <a class="page-link border-secondary bg-darker text-success px-3" 
                    th:href="@{''(page=${pageData.number + 1})}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                    <span aria-hidden="true">&rsaquo;</span>
                 </a>
             </li>
         </ul>

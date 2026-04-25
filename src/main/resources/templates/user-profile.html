@@ -8,30 +8,32 @@
 <body>
 
 <div layout:fragment="content">
-    <div class="user-profile-header mb-4 p-3 bg-darker rounded d-flex justify-content-between align-items-start">
-        <div>
-            <h2 class="text-success" th:text="${user.userName}">Username</h2>
-            <p class="text-secondary" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
-        </div>
-        <!--
-        th:if="${currentUserName != null and #strings.equalsIgnoreCase(#strings.trim(currentUserName), #strings.trim(user.userName))}"
-        -->
-        <div>
-            <a th:href="@{/profile/edit}" class="btn btn-sm btn-outline-success">profili düzenle</a>
+    <div class="card border-0 mb-5">
+        <div class="card-body bg-darker d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="entry-subject mb-1" th:text="${user.userName}">Username</h1>
+                <div class="text-muted small" th:text="${user.firstName} + ' ' + ${user.lastName}">Full Name</div>
+            </div>
+            <!--
+            th:if="${currentUserName != null and #strings.equalsIgnoreCase(#strings.trim(currentUserName), #strings.trim(user.userName))}"
+            -->
+            <div>
+                <a th:href="@{/profile/edit}" class="btn btn-outline-success">profili düzenle</a>
+            </div>
         </div>
     </div>
-    <hr class="border-secondary">
 
     <div class="user-entries">
-        <h4 class="mb-3">yazdığı entry'ler</h4>
+        <h4 class="mb-4 border-bottom border-secondary pb-2" style="color: #53a245; font-weight: 700;">yazdığı entry'ler</h4>
         
-        <div th:each="entry : ${user.entries}" class="mb-4">
+        <div th:each="entry : ${user.entries}">
             <div th:replace="~{fragments/entry-components :: entry-viewer(${entry})}"></div>
-            <hr class="border-secondary">
         </div>
         
-        <div th:if="${user.entries.empty}" class="text-secondary">
-            henüz hiç entry girmemiş.
+        <div th:if="${user.entries.empty}" class="card bg-transparent border-secondary">
+            <div class="card-body text-center text-muted py-5">
+                henüz hiç entry girmemiş.
+            </div>
         </div>
     </div>
 </div>
