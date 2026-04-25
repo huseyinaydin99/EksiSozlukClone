@@ -10,64 +10,62 @@
 <div layout:fragment="content">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-dark text-white border-secondary">
-                <div class="card-header border-secondary bg-success text-white">
-                    <h4 class="mb-0 text-center">Detayları Güncelle</h4>
+            <div class="card profile-edit-card">
+                <div class="card-header profile-edit-header">
+                    <h4 class="mb-0 text-center">bilgilerini güncelle</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form th:action="@{/profile/update}" method="post">
                         <input type="hidden" name="id" th:value="${user.id}">
                         
                         <div class="input-group mb-3">
-                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">Kullanıcı Adı</span>
-                            <input type="text" name="userName" class="form-control bg-dark text-white border-secondary" th:value="${user.userName}" required>
+                            <span class="input-group-text sozluk-input-group-text">kullanıcı adı</span>
+                            <input type="text" name="userName" class="form-control sozluk-form-control" th:value="${user.userName}" required>
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">Adı</span>
-                            <input type="text" name="firstName" class="form-control bg-dark text-white border-secondary" th:value="${user.firstName}">
+                            <span class="input-group-text sozluk-input-group-text">adı</span>
+                            <input type="text" name="firstName" class="form-control sozluk-form-control" th:value="${user.firstName}">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">Soyadı</span>
-                            <input type="text" name="lastName" class="form-control bg-dark text-white border-secondary" th:value="${user.lastName}">
+                            <span class="input-group-text sozluk-input-group-text">soyadı</span>
+                            <input type="text" name="lastName" class="form-control sozluk-form-control" th:value="${user.lastName}">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">E-Mail</span>
-                            <input type="email" name="emailAddress" class="form-control bg-dark text-white border-secondary" th:value="${user.emailAddress}" required>
+                            <span class="input-group-text sozluk-input-group-text">e-posta</span>
+                            <input type="email" name="emailAddress" class="form-control sozluk-form-control" th:value="${user.emailAddress}" required>
                         </div>
 
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-success px-4">Kaydet</button>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success btn-sozluk px-5">güncelle</button>
                         </div>
                     </form>
 
-                    <hr class="border-secondary my-4">
-
-                    <div class="card bg-dark text-white border-secondary">
-                        <div class="card-header border-secondary bg-darker text-white">
-                            <h5 class="mb-0 text-center">Şifre Değiştir</h5>
+                    <div class="card password-change-card">
+                        <div class="card-header password-change-header">
+                            <h5 class="mb-0">şifre değiştir</h5>
                         </div>
                         <div class="card-body">
                             <div id="password-alert" class="alert d-none"></div>
                             <form id="changePasswordForm">
                                 <div class="mb-3">
-                                    <input type="password" name="oldPassword" class="form-control bg-dark text-white border-secondary" placeholder="Eski Şifre" required>
+                                    <input type="password" name="oldPassword" class="form-control sozluk-form-control" placeholder="eski şifre" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" id="newPassword" name="newPassword" class="form-control bg-dark text-white border-secondary" placeholder="Yeni Şifre" required>
-                                    <div class="progress mt-2" style="height: 5px;">
+                                    <input type="password" id="newPassword" name="newPassword" class="form-control sozluk-form-control" placeholder="yeni şifre" required>
+                                    <div class="progress mt-2" style="height: 6px;">
                                         <div id="password-strength-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                     <small id="password-strength-text" class="text-muted d-block mt-1"></small>
-                                    <small id="new-password-error" class="text-danger d-none mt-1">Yeni şifre en az 6 karakter olmalıdır.</small>
+                                    <small id="new-password-error" class="text-danger d-none mt-1">yeni şifre en az 6 karakter olmalıdır.</small>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control bg-dark text-white border-secondary" placeholder="Yeni Şifre (Tekrar)" required>
-                                    <small id="confirm-password-error" class="text-danger d-none mt-1">Şifreler birbiriyle uyuşmuyor.</small>
+                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control sozluk-form-control" placeholder="yeni şifre (tekrar)" required>
+                                    <small id="confirm-password-error" class="text-danger d-none mt-1">şifreler birbiriyle uyuşmuyor.</small>
                                 </div>
-                                <button type="submit" id="changePasswordBtn" class="btn btn-success w-100">Kaydet</button>
+                                <button type="submit" id="changePasswordBtn" class="btn btn-outline-success w-100">şifreyi güncelle</button>
                             </form>
                         </div>
                     </div>

@@ -202,3 +202,46 @@ label {
 .bg-darker {
     background-color: #252525 !important;
 }
+
+/* Profil Güncelleme Sayfası İyileştirmeleri */
+.profile-edit-card {
+    background-color: #2d2d2d;
+    border: 1px solid #3e3e3e;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.profile-edit-header {
+    background-color: #53a245 !important;
+    border-bottom: 1px solid #3e6121;
+    color: white;
+}
+
+.sozluk-input-group-text {
+    background-color: #3e3e3e !important;
+    color: #bdbdbd !important;
+    border: 1px solid #474747 !important;
+    min-width: 120px;
+}
+
+.sozluk-form-control {
+    background-color: #1c1c1c !important;
+    color: #ffffff !important;
+    border: 1px solid #474747 !important;
+}
+
+.sozluk-form-control:focus {
+    border-color: #53a245 !important;
+    box-shadow: 0 0 0 0.2rem rgba(83, 162, 69, 0.25) !important;
+}
+
+.password-change-card {
+    background-color: #252525;
+    border: 1px solid #3e3e3e;
+    margin-top: 2rem;
+}
+
+.password-change-header {
+    background-color: #333333 !important;
+    color: #53a245 !important;
+    border-bottom: 1px solid #3e3e3e;
+}
