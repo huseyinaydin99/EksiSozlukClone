@@ -4,21 +4,26 @@ html, body {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: #1c1c1c;
     color: #bdbdbd;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* Scrollbar styling */
+/* Scrollbar styling - Hidden for cleaner look as requested */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 0px;
+    height: 0px;
+    background: transparent;
 }
-::-webkit-scrollbar-track {
-    background: #1c1c1c;
+
+/* For Firefox */
+* {
+    scrollbar-width: none;
 }
-::-webkit-scrollbar-thumb {
-    background: #3e3e3e;
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #4e4e4e;
+
+/* Re-enable for specific areas if needed, but keeping it hidden for "no scrollbar" experience */
+.content::-webkit-scrollbar, 
+.sidebar::-webkit-scrollbar {
+    display: none;
 }
 
 h1:focus {
@@ -321,12 +326,19 @@ label {
     letter-spacing: -1px;
 }
 
+.content {
+    height: calc(100vh - 65px);
+    overflow-y: scroll; /* Force show scroll context but hidden by webkit rule */
+    scrollbar-width: none; /* Firefox */
+}
+
 .sidebar {
     background-color: #1c1c1c;
     border-right: 1px solid #2d2d2d;
-    height: calc(100vh - 61px);
-    overflow-y: auto;
+    height: calc(100vh - 65px);
+    overflow-y: scroll; /* Force show scroll context */
     padding: 20px 0;
+    scrollbar-width: none; /* Firefox */
 }
 
 .sub-nav {
@@ -378,7 +390,20 @@ label {
     background-color: #252525;
     border: 1px solid #333;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.border-right-sozluk {
+    border-right: 1px solid #333;
+}
+
+@media (max-width: 767.98px) {
+    .border-right-sozluk {
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
 }
 
 .profile-edit-header {
