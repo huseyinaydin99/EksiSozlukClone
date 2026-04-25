@@ -11,41 +11,56 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card bg-dark text-white border-secondary">
-                <div class="card-header border-secondary">
-                    <h4 class="mb-0 text-success">bilgilerini güncelle</h4>
+                <div class="card-header border-secondary bg-success text-white">
+                    <h4 class="mb-0 text-center">Detayları Güncelle</h4>
                 </div>
                 <div class="card-body">
                     <form th:action="@{/profile/update}" method="post">
                         <input type="hidden" name="id" th:value="${user.id}">
                         
-                        <div class="mb-3">
-                            <label class="form-label text-secondary small">kullanıcı adı</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">Kullanıcı Adı</span>
                             <input type="text" name="userName" class="form-control bg-dark text-white border-secondary" th:value="${user.userName}" required>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label text-secondary small">ad</label>
-                                <input type="text" name="firstName" class="form-control bg-dark text-white border-secondary" th:value="${user.firstName}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label text-secondary small">soyad</label>
-                                <input type="text" name="lastName" class="form-control bg-dark text-white border-secondary" th:value="${user.lastName}">
-                            </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">Adı</span>
+                            <input type="text" name="firstName" class="form-control bg-dark text-white border-secondary" th:value="${user.firstName}">
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label text-secondary small">e-mail adresi</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">Soyadı</span>
+                            <input type="text" name="lastName" class="form-control bg-dark text-white border-secondary" th:value="${user.lastName}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-white text-dark border-secondary" style="width: 100px;">E-Mail</span>
                             <input type="email" name="emailAddress" class="form-control bg-dark text-white border-secondary" th:value="${user.emailAddress}" required>
                         </div>
 
-                        <hr class="border-secondary my-4">
-                        
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success">kaydet</button>
-                            <a th:href="@{'/profile/' + ${user.userName}}" class="btn btn-outline-secondary">vazgeç</a>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-success px-4">Kaydet</button>
                         </div>
                     </form>
+
+                    <hr class="border-secondary my-4">
+
+                    <div class="card bg-dark text-white border-secondary">
+                        <div class="card-header border-secondary bg-darker text-white">
+                            <h5 class="mb-0 text-center">Şifre Değiştir</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/profile/change-password}" method="post">
+                                <div class="mb-3">
+                                    <input type="password" name="oldPassword" class="form-control bg-dark text-white border-secondary" placeholder="Eski Şifre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" name="newPassword" class="form-control bg-dark text-white border-secondary" placeholder="Yeni Şifre" required>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100">Kaydet</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
