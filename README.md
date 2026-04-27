@@ -22,6 +22,12 @@ Bu proje, Ekşi Sözlük benzeri bir içerik platformunun backend mimarisini **S
 
 ![8](gorseller/8.png)
 
+#### Login & Register
+
+<img width="1512" height="982" alt="Ekran Resmi 2026-04-27 20 33 24" src="https://github.com/user-attachments/assets/719e5f32-5a2d-4652-b155-61af6571fb17" />
+<img width="1512" height="982" alt="Ekran Resmi 2026-04-27 20 33 14" src="https://github.com/user-attachments/assets/0106bdb6-3762-4753-8d50-7f2d6935b4d9" />
+
+
 ---
 
 ### 🧩 Mimari Yaklaşım
